@@ -17,7 +17,7 @@ from specklepy.core.api.enums import ProjectVisibility
 # You can find it in the URL when you open your workspace in Speckle web:
 # https://app.speckle.systems/settings/workspaces/macad-iaac/general
 
-WORKSPACE_ID = "YOUR_WORKSPACE_ID"
+WORKSPACE_ID = "a1cd06bae2"
 
 
 def main():
@@ -35,7 +35,7 @@ def main():
 
     # Create a new project inside the workspace
     project = client.project.create_in_workspace(WorkspaceProjectCreateInput(
-        name="YOUR_PROJECT_NAME",
+        name="Team_03.3_AC",
         description="Learning specklepy",
         visibility=ProjectVisibility.PRIVATE,
         workspaceId=WORKSPACE_ID
