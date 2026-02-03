@@ -31,9 +31,9 @@ def main():
     data = operations.receive(latest_version.referenced_object, transport)
 
     # Add root level properties
-    data["custom_property"] = "Team03.3"
-    data["analysis_date"] = "2026-02-03"
-    data["processed_by"] = "Andrea Cutroni"
+    data["Tower"] = "Team03.3"
+    data["Date"] = "2026-02-03"
+    data["Processed_by"] = "Andrea Cutroni"
 
     # Find "Old modules" collection (search recursively)
     def find_collection(obj, name):
@@ -69,7 +69,7 @@ def main():
     if new_modules:
         new_modules.name = "New Modules"
     
-    print(f"✓ Updated Designer names in 'Old modules' collection.")
+    print(f"✓ Updated Designer names in 'Old modules' 'New modules' collection.")
     
     
     # Send the modified data back to Speckle
