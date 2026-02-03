@@ -38,12 +38,14 @@ def main():
     # Find "Old modules" collection (search recursively)
     def find_collection(obj, name):
         elements = getattr(obj, "@elements", None) or getattr(obj, "elements", [])
-        for el in elements or []:
-            if getattr(el, "name", None) == name:
-                return el
-        found = find_collection(el, name)
-        if found:
-                return found
+        if elements:
+            for el in elements:
+                if getattr(el, "name", None) == name:
+                    return el
+                # Recursively search in child elements
+                found = find_collection(el, name)
+                if found:
+                    return found
         return None
 
 
@@ -57,27 +59,17 @@ def main():
         old_modules.name = "Old Modules"
         old_elements = getattr(old_modules, "@elements", None) or getattr(
             old_modules, "elements", []
-    )
+        )
         for element, designer in zip(old_elements, new_designers):
             if isinstance(element, Base) and "properties" in element.get_member_names():
                 element["properties"]["Designer"] = designer
-    print(f"✓ Updated Designer names in 'Old modules' collection.")
-
+    
+    # Find and rename the duplicated object
     new_modules = find_collection(data, "Object_Copy")
-
-    # Modify Designer names
-    designers = ["Andrea Cutroni"]
-
     if new_modules:
-        # Change collection name
         new_modules.name = "New Modules"
-        new_elements = getattr(new_modules, "@elements", None) or getattr(
-            new_modules, "elements", []
-    )
-        for element, designer in zip(new_elements, designers):
-            if isinstance(element, Base) and "properties" in element.get_member_names():
-                element["properties"]["Designer"] = designer
-    print(f"✓ Updated Designer names in 'New modules' collection.")
+    
+    print(f"✓ Updated Designer names in 'Old modules' collection.")
     
     
     # Send the modified data back to Speckle
