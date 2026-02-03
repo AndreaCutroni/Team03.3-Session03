@@ -53,6 +53,8 @@ def main():
     new_designers = ["Andrea Cutroni", "Eva Vasileska"]
 
     if old_modules:
+        # Change collection name
+        old_modules.name = "Old Modules"
         old_elements = getattr(old_modules, "@elements", None) or getattr(
             old_modules, "elements", []
     )
@@ -60,6 +62,22 @@ def main():
             if isinstance(element, Base) and "properties" in element.get_member_names():
                 element["properties"]["Designer"] = designer
     print(f"✓ Updated Designer names in 'Old modules' collection.")
+
+    new_modules = find_collection(data, "Object_Copy")
+
+    # Modify Designer names
+    designers = ["Andrea Cutroni"]
+
+    if new_modules:
+        # Change collection name
+        new_modules.name = "New Modules"
+        new_elements = getattr(new_modules, "@elements", None) or getattr(
+            new_modules, "elements", []
+    )
+        for element, designer in zip(new_elements, designers):
+            if isinstance(element, Base) and "properties" in element.get_member_names():
+                element["properties"]["Designer"] = designer
+    print(f"✓ Updated Designer names in 'New modules' collection.")
     
     
     # Send the modified data back to Speckle
