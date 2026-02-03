@@ -1,5 +1,5 @@
 """
-04 - Modify Geometry in a Speckle Model
+03 - Modify Geometry in a Speckle Model
 
 This script demonstrates how to find an object by applicationId,
 duplicate it with an offset, and commit a new version.
