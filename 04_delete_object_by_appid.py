@@ -16,7 +16,7 @@ PROJECT_ID = "128262a20c"
 MODEL_ID = "9ec0d0a2a2"
 
 # Replace with the applicationId of the object to delete
-TARGET_APPLICATION_ID = "faf44926-0984-4566-b681-95c457ac42fc"
+TARGET_APPLICATION_ID = "3922587a-b2c2-4bb5-b25a-a592ffb46f94"
 
 
 def find_and_delete_object(obj, target_id: str):

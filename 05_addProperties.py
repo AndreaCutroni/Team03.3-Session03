@@ -17,7 +17,6 @@ from specklepy.core.api.inputs.version_inputs import CreateVersionInput
 PROJECT_ID = "128262a20c"
 MODEL_ID = "9ec0d0a2a2"
 
-
 def main():
     # Authenticate
     client = get_client()
@@ -32,8 +31,8 @@ def main():
 
     # Add root level properties
     data["Tower"] = "Team03.3"
-    data["Date"] = "2026-02-03"
-    data["Processed_by"] = "Andrea Cutroni"
+    data.name = "SpecklePy Model"
+    
 
     # Find "Old modules" collection (search recursively)
     def find_collection(obj, name):
@@ -64,10 +63,20 @@ def main():
             if isinstance(element, Base) and "properties" in element.get_member_names():
                 element["properties"]["Designer"] = designer
     
+    
+    folder = Base()
+    data["elements"].append(folder)
+    
     # Find and rename the duplicated object
     new_modules = find_collection(data, "Object_Copy")
+
     if new_modules:
-        new_modules.name = "New Modules"
+        new_modules.name = "Duplicated Object"
+    new_modules = find_collection(data, "New Modules")
+    folder["elements"] = []
+    folder["elements"].append(new_modules)
+    folder.name = "New Modules"
+    print(new_modules)
     
     print(f"✓ Updated Designer names in 'Old modules' 'New modules' collection.")
     
