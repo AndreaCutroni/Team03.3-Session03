@@ -2,7 +2,7 @@
 GQL Subscriptions with Speckle and Exporting Data to JSON when Updates Occur
 
 This script demonstrates how to subscribe to real-time updates from a Speckle project ("project_id")
-using GraphQL subscriptions  and save the received data to a JSON file whenever an update occurs 
+using GraphQL subscriptions and save the received data to a JSON file whenever an update occurs 
 to have a backup of the latest data.
 """
 
@@ -23,7 +23,7 @@ YOUR_TOKEN =  os.environ.get("SPECKLE_TOKEN")
 PROJECT_ID = "128262a20c"
 OBJECT_ID = "69a045a60359a4ff588faeb018e14f60"
 
-def query_object_data_graphql(client, project_id: str, object_id: str) -> dict:
+def query_object_data_graphql(project_id: str, object_id: str) -> dict:
     """
     Query object data from Speckle using GraphQL API.
     
@@ -53,7 +53,8 @@ def query_object_data_graphql(client, project_id: str, object_id: str) -> dict:
     }
     
     # Execute GraphQL query using the client's HTTP session
-    result = client.httpclient.execute(query, variable_values=variables)
+    http_client = get_client()
+    result = http_client.httpclient.execute(query, variable_values=variables)
     return result
 
 def save_object_data_to_json(project_id: str, data: dict, timestamp: str = None):
@@ -68,7 +69,7 @@ def save_object_data_to_json(project_id: str, data: dict, timestamp: str = None)
     # Save to JSON file in the same directory as this script
     script_dir = os.path.dirname(os.path.abspath(__file__))
     timestamp_str = timestamp.replace(":", "-") if timestamp else datetime.now().strftime("%Y-%m-%dT%H-%M-%S")
-    output_file = os.path.join(script_dir, f"object_data_{project_id}_{timestamp_str}.json")
+    output_file = os.path.join(script_dir, f"object_data_{timestamp_str}.json")
     
     with open(output_file, "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2, default=str)

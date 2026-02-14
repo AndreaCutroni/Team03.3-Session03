@@ -12,8 +12,8 @@ from gql import gql
 
 
 # TODO: Replace with your project and object IDs
-PROJECT_ID = "a2d4f63c4b"
-OBJECT_ID = "89bac5c2e9c810422539cde258111990"
+PROJECT_ID = "128262a20c"
+OBJECT_ID = "69a045a60359a4ff588faeb018e14f60"
 
 
 def query_object_data_graphql(client, project_id: str, object_id: str) -> dict:
