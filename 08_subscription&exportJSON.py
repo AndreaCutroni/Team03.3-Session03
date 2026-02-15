@@ -23,7 +23,8 @@ YOUR_TOKEN =  os.environ.get("SPECKLE_TOKEN")
 PROJECT_ID = "128262a20c"
 OBJECT_ID = "69a045a60359a4ff588faeb018e14f60"
 
-def query_object_data_graphql(project_id: str, object_id: str) -> dict:
+
+def query_object_data_graphql(client, project_id: str, object_id: str) -> dict:
     """
     Query object data from Speckle using GraphQL API.
     
@@ -53,11 +54,10 @@ def query_object_data_graphql(project_id: str, object_id: str) -> dict:
     }
     
     # Execute GraphQL query using the client's HTTP session
-    http_client = get_client()
-    result = http_client.httpclient.execute(query, variable_values=variables)
+    result = client.httpclient.execute(query, variable_values=variables)
     return result
 
-def save_object_data_to_json(project_id: str, data: dict, timestamp: str = None):
+def save_object_data_to_json(PROJECT_ID: str, OBJECT_ID: str, data: dict, timestamp: str = None):
     
     output = {
         "projectId": PROJECT_ID,
@@ -95,8 +95,11 @@ subscription_query = gql("""
 
 async def subscribe_and_export():
     """
-    Subscribe to project version updates using WebSocket
+    Subscribe to project version updates using WebSocket and save each update to a JSON file
     """
+    # Create a SpeckleClient instance for GraphQL HTTP queries
+    http_client = get_client()
+    
     # Create WebSocket transport with authentication
     transport = WebsocketsTransport(
         url="wss://app.speckle.systems/graphql",
@@ -144,15 +147,18 @@ async def subscribe_and_export():
 
                         # Query object data using GraphQL
                         try:
-                            graphql_result = query_object_data_graphql(client, PROJECT_ID, OBJECT_ID)
+                            graphql_result = query_object_data_graphql(http_client, PROJECT_ID, OBJECT_ID)
                             print(f"✓ GraphQL query executed successfully")
                             
                             # Save the received data to JSON file
                             object_data = graphql_result["project"]["object"]["data"]
                             timestamp = version.get('createdAt') if version else None
-                            save_object_data_to_json(PROJECT_ID, object_data, timestamp)
+                            save_object_data_to_json(PROJECT_ID, OBJECT_ID, object_data, timestamp)
+
                         except Exception as e:
                             print(f"⚠ Failed to query or save object data: {e}")
+
+                        print("\n")
                     
             except asyncio.CancelledError:
                 print("\n\n👋 Subscription cancelled")

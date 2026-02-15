@@ -1,0 +1,31 @@
+{
+  "projectId": "128262a20c",
+  "objectId": "69a045a60359a4ff588faeb018e14f60",
+  "timestamp": "2026-02-15T01:38:09.260Z",
+  "data": {
+    "id": "69a045a60359a4ff588faeb018e14f60",
+    "area": 2320,
+    "units": "m",
+    "volume": 7599.999999999999,
+    "__closure": {
+      "26117284b10d9b0458c8a931a372da1b": 1,
+      "830ff598a75da386b0b0a9cf3af0752f": 2,
+      "d65627480452c6b211b2aa1e9651d3c3": 1,
+      "d7d027dbfdbdd8ce18bc0048994a9993": 2
+    },
+    "displayValue": [
+      {
+        "__closure": null,
+        "referencedId": "d65627480452c6b211b2aa1e9651d3c3",
+        "speckle_type": "reference"
+      }
+    ],
+    "encodedValue": {
+      "__closure": null,
+      "referencedId": "26117284b10d9b0458c8a931a372da1b",
+      "speckle_type": "reference"
+    },
+    "speckle_type": "Objects.Geometry.ExtrusionX",
+    "applicationId": "a40ad6f0-5a22-4558-8cd7-98233bb8d500"
+  }
+}
